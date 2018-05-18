@@ -8,6 +8,7 @@ package dbapplication;
 /**
  *
  * @author Wessel
+ * @author Stijn Appúnn 17080932
  */
 public class DBapplication {
 
