@@ -7,14 +7,9 @@ package dbapplication;
 
 /**
  *
- * @author Wessel Bakker 17094801
+ * @author Wessel
  * @author Stijn Appúnn 17080932
-<<<<<<< HEAD
  * @author Remon Turk 17071682
-=======
- * @author Wouter Wesselink
- * @author Remon Turk
->>>>>>> 3a5d12cca0be228b3da8c1402e1a970e511841d2
  */
 public class DBapplication {
 
