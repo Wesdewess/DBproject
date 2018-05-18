@@ -9,6 +9,7 @@ package dbapplication;
  *
  * @author Wessel
  * @author Stijn Appúnn 17080932
+ * @author Remon Turk 17071682
  */
 public class DBapplication {
 
@@ -18,7 +19,6 @@ public class DBapplication {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("test");
-        hallo
     }
     
 }
