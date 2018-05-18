@@ -7,8 +7,10 @@ package dbapplication;
 
 /**
  *
- * @author Wessel
+ * @author Wessel Bakker 17094801
  * @author Stijn Appúnn 17080932
+ * @author Wouter Wesselink
+ * @author Remon Turk
  */
 public class DBapplication {
 
