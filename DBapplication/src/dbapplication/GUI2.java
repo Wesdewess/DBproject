@@ -28,18 +28,18 @@ public class GUI2 {
         JButton button = new JButton("Button 1");
         pane.add(button);
         
-        button = new JButton("Button 2");
+        JButton button2 = new JButton("Button 2");
         //button.setPreferredSize(new Dimension(200, 100));
-        pane.add(button);
+        pane.add(button2);
         
-        button = new JButton("Button 3");
-        pane.add(button);
+        JButton button3 = new JButton("Button 3");
+        pane.add(button3);
         
-        button = new JButton("Button 4");
-        pane.add(button);
+        JButton button4 = new JButton("Button 4");
+        pane.add(button4);
         
-        button = new JButton("Button 5");
-        pane.add(button);
+        JButton button5 = new JButton("Button 5");
+        pane.add(button5);
         
     String content = "Here men from the planet Earth\n"
       + "first set foot upon the Moon,\n" + "July 1969, AD.\n"
@@ -76,13 +76,17 @@ public class GUI2 {
     table = new JTable(tblModel);
     table.setModel(tblModel);
     
-    for(int i =0; i<connectieMetDB.getOutput().size();i++) {
-        String nummer = Integer.toString(i);
-        String username = connectieMetDB.getOutput().get(i);
+    button.addActionListener(e -> {
+        for(int i =0; i<connectieMetDB.getOutput().size();i++) {
+            String nummer = Integer.toString(i);
+            String username = connectieMetDB.getOutput().get(i);
  
-        Object[] data = {nummer,username};         
-        tblModel.addRow(data);
+            Object[] data = {nummer,username};         
+            tblModel.addRow(data);
         }
+    });
+    
+   
      
     JScrollPane sp = new JScrollPane(table);  
     
