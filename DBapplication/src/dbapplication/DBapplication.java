@@ -7,7 +7,8 @@ package dbapplication;
 
 /**
  *
- * @author Wessel
+ * @author Wessel Bakker 17094801
+ * @author Wouter Wesselink
  * @author Stijn Appúnn 17080932
  * @author Remon Turk 17071682
  */
