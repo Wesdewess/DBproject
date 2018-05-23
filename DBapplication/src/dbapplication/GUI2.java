@@ -86,6 +86,20 @@ public class GUI2 {
         }
     });
     
+    //hier de manier waarop Wouter Pijnacker het altijd doet:
+    /*button.addActionListener(new ActionListener()
+    {
+      public void actionPerformed(ActionEvent e)
+      {
+        for(int i =0; i<connectieMetDB.getOutput().size();i++) {
+            String nummer = Integer.toString(i);
+            String username = connectieMetDB.getOutput().get(i);
+ 
+            Object[] data = {nummer,username};         
+            tblModel.addRow(data);
+        }
+      }
+    });*/
    
      
     JScrollPane sp = new JScrollPane(table);  
