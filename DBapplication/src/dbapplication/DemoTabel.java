@@ -31,7 +31,7 @@ public class DemoTabel {
     int size;
     Font myFont;
     
-    static String favoritePizza;
+    static String gekozenTabel;
     
     public DemoTabel (JTable table){
         myTable = table;
@@ -60,26 +60,26 @@ public class DemoTabel {
     
     public void opties(ArrayList<String> k){
         //final String[] pizzas = { "Cheese", "Pepperoni", "Sausage", "Veggie" };
-        String[] pizzas = new String[k.size()];
+        String[] tabelNamen = new String[k.size()];
         for(int i = 0; i < k.size(); i++){
-            pizzas[i] = k.get(i);
+            tabelNamen[i] = k.get(i);
         }
         
-        favoritePizza = (String) JOptionPane.showInputDialog(myFrame, 
-        "What is your favorite pizza?",
-        "Favorite Pizza",
+        gekozenTabel = (String) JOptionPane.showInputDialog(myFrame, 
+        "Uit welke tabel zou je de gegevens willen zien?",
+        "Select tabel",
         JOptionPane.QUESTION_MESSAGE, 
         null, 
-        pizzas, 
-        pizzas[0]);
+        tabelNamen, 
+        tabelNamen[0]);
 
     // favoritePizza will be null if the user clicks Cancel
-    System.out.printf("Favorite pizza is %s.\n", favoritePizza);
+    System.out.printf("De gekozen tabel is: %s.\n", gekozenTabel);
     //System.exit(0);
     }
 
-    public static String getFavoritePizza() {
-        return favoritePizza;
+    public static String getGekozenTabel() {
+        return gekozenTabel;
     }
     
 }

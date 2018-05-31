@@ -38,13 +38,14 @@ public class DemoDB13 {
      * @param args no command line arguments
      */
     public static void main(String[] args) {
-        Scanner keyboard = new Scanner(System.in);
+        /*Scanner keyboard = new Scanner(System.in);
         String command = "";
         while (!command.equals("1") && !command.equals("2")){
             System.out.print("Kies SQL-server 1(MySQL) of 2(MS SQL): ");
             command = keyboard.nextLine();
-        }
+        }*/
         
+        String command = "2";
         String propertiesFile;
         if (command.equals("1")){
             propertiesFile = "MySQL.properties";
@@ -71,15 +72,6 @@ public class DemoDB13 {
                     //System.out.println(rs.getString("TABLE_NAME"));
                     alleTabellen.add(rs.getString("TABLE_NAME"));
                 }
-
-                int b = 0;
-                
-                /*for(int t = 0; t < i; t++){
-                    System.out.println("Test");
-                    System.out.println(rs.getString("TABLE_NAME"));
-                    alleTabellen[b] = rs.getString("TABLE_NAME");
-                    b++;
-                }*/
                 
                 String qryUse = "USE AuditBlackBox;";
 
@@ -87,13 +79,12 @@ public class DemoDB13 {
                 System.out.println("database gevonden...");
 
                 
-
                 JTable tabel = new JTable();
                 DemoTabel demoGUI = new DemoTabel(tabel);
                 demoGUI.show();
                 demoGUI.opties(alleTabellen);
                 
-                String qryPrepStat = "SELECT * FROM [AuditBlackBox].[dbo].[" + demoGUI.getFavoritePizza() + "]";
+                String qryPrepStat = "SELECT * FROM [AuditBlackBox].[dbo].[" + demoGUI.getGekozenTabel() + "]";
                 PreparedStatement prepStat = conn.prepareStatement(qryPrepStat);
 
                 //System.out.print("Geef woonplaats: ");
