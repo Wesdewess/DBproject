@@ -39,10 +39,10 @@ public class SimpleDataSource
       password = props.getProperty("jdbc.password");
       if (password == null) { password = ""; }
 
-      String driver = props.getProperty("jdbc.driver");
-      if (driver != null) { 
-          Class.forName(driver);  // load the specified JDBC-driver
-      }
+//      String driver = props.getProperty("jdbc.driver");
+//      if (driver != null) { 
+//          Class.forName(driver);  // load the specified JDBC-driver
+//      }
    }
 
    /**
