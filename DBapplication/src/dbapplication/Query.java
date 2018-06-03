@@ -101,7 +101,7 @@ public class Query {
                                 
                                 stat = conn.createStatement();
                                 String query2 = "INSERT INTO [Singalen].[dbo].[Singaal] (Username, Singaal_ID, Start_Datum_Singaal)" +
-                                    " VALUES " + values.substring(0, values.length() - 3) + ";";
+                                    " VALUES " + values.substring(0, values.length() - 2) + ";";
                                 stat.executeUpdate(query2);
                                 values = "";
                             }
