@@ -9,6 +9,7 @@ import static dbapplication.SimpleDataSource.getConnection;
 import static dbapplication.SimpleDataSource.init;
 import java.io.FileInputStream;
 import java.io.IOException;
+import static java.lang.Thread.sleep;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -55,6 +58,17 @@ public class Query {
             init("MSSQL.properties");
             conn = getConnection();
             stat = conn.createStatement();
+            
+            /**
+            stat.executeUpdate("DELETE FROM [Singalen].[dbo].[Singaal] WHERE 0 = 0;");
+            stat = conn.createStatement();
+            **/
+            
+            try {
+                sleep(10);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Query.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
             try{
                 FileInputStream in = new FileInputStream("DB.properties");
@@ -65,24 +79,40 @@ public class Query {
                 try{
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
                     Date date = new Date();
+                    int count = 0;
+                    String values = "";
                     
-                    for (int i = 1; i < 10; i++){
+                    for (int i = 1; i <= 10; i++){
                         String q = Integer.toString(i);
                         String query = props.getProperty(q);
 
                         ResultSet res = stat.executeQuery(query);
-                        System.out.println(res);
                         
                         ResultSetMetaData metaData = res.getMetaData();
                         String columnName = metaData.getColumnLabel(1);
-                        System.out.println(columnName);
                         
                         while (res.next()){
 //                            test.add(res.getString(columnName));
-                            String query2 = "INSERT INTO [Singalen].[dbo].[Singaal] (Username, Singaal_ID, Start_Datum_Singaal)" +
-                                    "VALUES ('" + (res.getString(columnName)) + "', '" + i + "', '" + dateFormat.format(date) + "');";
-                            stat.executeQuery(query2);
+                            date = new Date();
+                            values += "('" + (res.getString(columnName)) + "', '" + i + "', '" + dateFormat.format(date) + "'), ";
+                            count++;
+                            if (count == 1000) {
+                                count = 0;
+                                
+                                stat = conn.createStatement();
+                                String query2 = "INSERT INTO [Singalen].[dbo].[Singaal] (Username, Singaal_ID, Start_Datum_Singaal)" +
+                                    " VALUES " + values.substring(0, values.length() - 3) + ";";
+                                stat.executeUpdate(query2);
+                                values = "";
+                            }
                         }
+                        
+                        if (i == 10 && count > 0) {
+                            stat = conn.createStatement();
+                            String query2 = "INSERT INTO [Singalen].[dbo].[Singaal] (Username, Singaal_ID, Start_Datum_Singaal)" +
+                                " VALUES " + values.substring(0, values.length() - 2) + ";";
+                            stat.executeUpdate(query2);
+                        }                     
                     }
 //                    System.out.println("Printing Starts");
 //                    for (int i =0; i<test.size();i++){
