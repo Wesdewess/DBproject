@@ -117,9 +117,14 @@ public class Query {
                             stat.executeUpdate(query2);
                         }                     
                     }
+<<<<<<< HEAD
                     
                     stat.executeQuery(insert);
                     String update = "UPDATE [Signalen].[dbo].[Signaal] SET Eind_Datum_Signaal = '" + dateFormat.format(date) +
+=======
+                    stat.execute(insert);
+                    String update = "UPDATE Singalen.dbo.Signaal SET Eind_Datum_Signaal = '" + dateFormat.format(date) +
+>>>>>>> 435085d4f8004c372fc5e08851bc27a4eccab6c7
                     "' WHERE Username NOT IN (SELECT Username FROM dbo.SignaalTemp) AND Eind_Datum_Signaal IS NULL;";
                     stat.executeQuery(update);
                         
