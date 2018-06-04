@@ -60,7 +60,7 @@ public class Query {
             stat = conn.createStatement();
             
             /**
-            stat.executeUpdate("DELETE FROM [Singalen].[dbo].[Singaal] WHERE 0 = 0;");
+            stat.executeUpdate("DELETE FROM [Signalen].[dbo].[Signaal] WHERE 0 = 0;");
             stat = conn.createStatement();
             **/
             
@@ -81,7 +81,10 @@ public class Query {
                     Date date = new Date();
                     int count = 0;
                     String values = "";
-                    
+                    String create = props.getProperty("create");
+                    String insert = props.getProperty("insert");
+                    stat.execute(create);
+                    System.out.println("testtttttt");
                     for (int i = 1; i <= 10; i++){
                         String q = Integer.toString(i);
                         String query = props.getProperty(q);
@@ -92,16 +95,17 @@ public class Query {
                         String columnName = metaData.getColumnLabel(1);
                         
                         while (res.next()){
-//                            test.add(res.getString(columnName));
+                            
                             date = new Date();
                             values += "('" + (res.getString(columnName)) + "', '" + i + "', '" + dateFormat.format(date) + "'), ";
                             count++;
+                            
                             if (count == 1000) {
                                 count = 0;
                                 
                                 stat = conn.createStatement();
-                                String query2 = "INSERT INTO [Singalen].[dbo].[Singaal] (Username, Singaal_ID, Start_Datum_Singaal)" +
-                                    " VALUES " + values.substring(0, values.length() - 2) + ";";
+                                String query2 = "INSERT INTO [Signalen].[dbo].[SignaalTemp] (Username, Signaal_ID, Start_Datum_Signaal) " +
+                                    "VALUES " + values.substring(0, values.length() - 2) + ";";
                                 stat.executeUpdate(query2);
                                 values = "";
                             }
@@ -109,18 +113,22 @@ public class Query {
                         
                         if (i == 10 && count > 0) {
                             stat = conn.createStatement();
-                            String query2 = "INSERT INTO [Singalen].[dbo].[Singaal] (Username, Singaal_ID, Start_Datum_Singaal)" +
+                            String query2 = "INSERT INTO [Signalen].[dbo].[SignaalTemp] (Username, Signaal_ID, Start_Datum_Signaal)" +
                                 " VALUES " + values.substring(0, values.length() - 2) + ";";
                             stat.executeUpdate(query2);
                         }                     
                     }
-//                    System.out.println("Printing Starts");
-//                    for (int i =0; i<test.size();i++){
-//                        System.out.println(test.get(i));
-//                    }
+                    stat.executeQuery(insert);
+                    String update = "UPDATE Singalen.dbo.Signaal SET Eind_Datum_Signaal = '" + dateFormat.format(date) +
+                    "' WHERE Username NOT IN (SELECT Username FROM dbo.SignaalTemp) AND Eind_Datum_Signaal IS NULL;";
+                    stat.executeQuery(update);
+                        
                 }
                 finally {
-                    conn.close();
+                    String drop = props.getProperty("drop");
+                    stat.execute(drop);
+                    System.out.println("dropped");
+                    conn.close(); 
                     System.out.println("verbinding verbroken");
                 }
             }
