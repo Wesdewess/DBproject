@@ -20,7 +20,7 @@ public class DBapplication {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("test");
-        Query.query();
+        Query2.query2();
     }
     
 }

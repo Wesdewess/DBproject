@@ -84,7 +84,6 @@ public class Query {
                     String create = props.getProperty("create");
                     String insert = props.getProperty("insert");
                     stat.execute(create);
-                    System.out.println("testtttttt");
                     for (int i = 1; i <= 10; i++){
                         String q = Integer.toString(i);
                         String query = props.getProperty(q);
@@ -118,8 +117,9 @@ public class Query {
                             stat.executeUpdate(query2);
                         }                     
                     }
+                    
                     stat.executeQuery(insert);
-                    String update = "UPDATE Singalen.dbo.Signaal SET Eind_Datum_Signaal = '" + dateFormat.format(date) +
+                    String update = "UPDATE [Signalen].[dbo].[Signaal] SET Eind_Datum_Signaal = '" + dateFormat.format(date) +
                     "' WHERE Username NOT IN (SELECT Username FROM dbo.SignaalTemp) AND Eind_Datum_Signaal IS NULL;";
                     stat.executeQuery(update);
                         
