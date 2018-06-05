@@ -18,9 +18,10 @@ public class DBapplication {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        Query.query();
         // TODO code application logic here
         System.out.println("test");
-        Query2.query2();
     }
     
 }
