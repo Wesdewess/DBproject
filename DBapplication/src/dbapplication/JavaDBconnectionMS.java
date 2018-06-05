@@ -14,8 +14,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- *
- * @author Wouter
+ * @author Wessel Bakker 17094801
+ * @author Wouter Wesselink 17133041
+ * @author Stijn Appúnn 17080932
+ * @author Remon Turk 17071682
  */
 public class JavaDBconnectionMS {
     static ArrayList<String> output = new ArrayList<String>();
