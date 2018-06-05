@@ -6,7 +6,6 @@
 package dbapplication;
 
 /**
- *
  * @author Wessel Bakker 17094801
  * @author Wouter Wesselink 17133041
  * @author Stijn Appúnn 17080932
@@ -20,8 +19,6 @@ public class DBapplication {
     public static void main(String[] args) {
         
         Query.query();
-        // TODO code application logic here
-        System.out.println("test");
     }
     
 }
