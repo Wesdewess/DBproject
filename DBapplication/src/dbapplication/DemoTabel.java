@@ -59,6 +59,10 @@ public class DemoTabel {
  
         JComboBox<String> signalenLijst = new JComboBox<>(signalen);
         signalenLijst.setPreferredSize(new Dimension(200, 35));
+        //Zodat er ook wat wordt gedaan wanneer een "optie" wordt geselecteerd
+        signalenLijst.addActionListener(e -> {
+            System.out.println((String) signalenLijst.getSelectedItem());
+        });
         
         JPanel contentPane = new JPanel(new BorderLayout());
         contentPane.setOpaque(true);
@@ -98,8 +102,8 @@ public class DemoTabel {
         myTable.setAutoCreateRowSorter(true);
         
         
-        String selectedSignaal = (String) signalenLijst.getSelectedItem();
-        System.out.println(selectedSignaal);
+        //String selectedSignaal = (String) signalenLijst.getSelectedItem();
+        //System.out.println(selectedSignaal);
     }
     
     public void show(){
