@@ -71,6 +71,7 @@ public class DemoTabel {
         JPanel contentPane2 = new JPanel(new BorderLayout());
         
         JTextArea area = new JTextArea(50,50);
+        area.setEditable(false);
         area.setFont(new Font("Serif", Font.PLAIN, 20));
         area.append("# 1 = RDS User naam in Profit bestaat niet in de AD\n" +
                     "# 2 = Medewerker uit dienst in Profit, account is in AD actief\n" +
