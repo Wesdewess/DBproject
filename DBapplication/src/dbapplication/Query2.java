@@ -150,8 +150,8 @@ public class Query2 {
                         
                         
                         
-                        /**
-                        while (res.next()){
+                        
+                        /**while (res.next()){
 //                            test.add(res.getString(columnName));
                             date = new Date();
                             values += "('" + (res.getString(columnName)) + "', '" + i + "', '" + dateFormat.format(date) + "'), ";
@@ -161,7 +161,7 @@ public class Query2 {
                                 
                                 stat = conn.createStatement();
                                 String query2 = "INSERT INTO [Singalen].[dbo].[Singaal] (Username, Singaal_ID, Start_Datum_Singaal)" +
-               m                     " VALUES " + values.substring(0, values.length() - 2) + ";";
+                                " VALUES " + values.substring(0, values.length() - 2) + ";";
                                 stat.executeUpdate(query2);
                                 values = "";
                             }
@@ -174,6 +174,7 @@ public class Query2 {
                             stat.executeUpdate(query2);
                         }
                         **/
+                        
                     }
 //                    System.out.println("Printing Starts");
 //                    for (int i =0; i<test.size();i++){
