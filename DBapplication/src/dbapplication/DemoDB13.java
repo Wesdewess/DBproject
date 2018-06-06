@@ -63,8 +63,8 @@ public class DemoDB13 {
             demoGUI.show();
             demoGUI.optieDB();
             
-            String kk = demoGUI.getGekozenDB();
-            String connectionString = "jdbc:sqlserver://localhost:1433;database=" + kk;
+            String gekozenDB = demoGUI.getGekozenDB();
+            String connectionString = "jdbc:sqlserver://localhost:1433;database=" + gekozenDB;
             Connection conn = DriverManager.getConnection(connectionString, "testuser", "testuser");
             
             /*SimpleDataSource.init(propertiesFile);
@@ -98,7 +98,7 @@ public class DemoDB13 {
                 demoGUI.opties(alleTabellen);
                 
                 String qryPrepStat;
-                qryPrepStat = "SELECT * FROM [" + kk + "].[dbo].[" + demoGUI.getGekozenTabel() + "]";
+                qryPrepStat = "SELECT * FROM [" + gekozenDB + "].[dbo].[" + demoGUI.getGekozenTabel() + "]";
                 PreparedStatement prepStat = conn.prepareStatement(qryPrepStat);
                 ResultSet res = prepStat.executeQuery();
                 setTableSimple(res, tabel); 
