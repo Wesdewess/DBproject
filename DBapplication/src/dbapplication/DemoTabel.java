@@ -36,6 +36,7 @@ public class DemoTabel {
     JFrame myFrame;
     int size;
     Font myFont;
+    static String gekozenDB;
     static String gekozenTabel;
     static String query;
 
@@ -43,6 +44,9 @@ public class DemoTabel {
         return query;
     }
     
+    public static String getGekozenDB(){
+        return gekozenDB;
+    }
     
     public DemoTabel (JTable table){
         myTable = table;
@@ -138,6 +142,21 @@ public class DemoTabel {
         myFrame.setVisible(true);
     }
     
+    public void optieDB(){
+       final String[] DBs = { "Signalen", "AuditBlackBox"};
+       
+        gekozenDB = (String) JOptionPane.showInputDialog(myFrame, 
+        "Uit welke Database zou je de gegevens willen zien?",
+        "Select Database",
+        JOptionPane.QUESTION_MESSAGE, 
+        null, 
+        DBs, 
+        DBs[0]);
+
+        // favoritePizza will be null if the user clicks Cancel
+        System.out.printf("De gekozen tabel is: %s.\n", gekozenDB);
+    }
+    
     public void opties(ArrayList<String> k){
         //final String[] pizzas = { "Cheese", "Pepperoni", "Sausage", "Veggie" };
         String[] tabelNamen = new String[k.size()];
@@ -153,9 +172,9 @@ public class DemoTabel {
         tabelNamen, 
         tabelNamen[0]);
 
-    // favoritePizza will be null if the user clicks Cancel
-    System.out.printf("De gekozen tabel is: %s.\n", gekozenTabel);
-    //System.exit(0);
+        // favoritePizza will be null if the user clicks Cancel
+        System.out.printf("De gekozen tabel is: %s.\n", gekozenTabel);
+        //System.exit(0);
     }
 
     public static String getGekozenTabel() {

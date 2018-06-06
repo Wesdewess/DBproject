@@ -15,6 +15,7 @@ import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -57,10 +58,18 @@ public class DemoDB13 {
         }
         
         try {
-            SimpleDataSource.init(propertiesFile);
+            JTable tabel = new JTable();
+            DemoTabel demoGUI = new DemoTabel(tabel);
+            demoGUI.show();
+            demoGUI.optieDB();
+            
+            String kk = demoGUI.getGekozenDB();
+            String connectionString = "jdbc:sqlserver://localhost:1433;database=" + kk;
+            Connection conn = DriverManager.getConnection(connectionString, "testuser", "testuser");
+            
+            /*SimpleDataSource.init(propertiesFile);
             Connection conn = SimpleDataSource.getConnection();
-            System.out.println
-                ("verbinding gemaakt middels " + propertiesFile + "...");
+            System.out.println("verbinding gemaakt middels " + propertiesFile + "...");*/
 
             try {
                 Statement stat = conn.createStatement();
@@ -76,19 +85,20 @@ public class DemoDB13 {
                     alleTabellen.add(rs.getString("TABLE_NAME"));
                 }
                 
-                String qryUse = "USE AuditBlackBox;";
+                //String qryUse = "USE " + kk + ";";
 
-                stat.execute(qryUse);
+                //stat.execute(qryUse);
                 System.out.println("database gevonden...");
 
                 
-                JTable tabel = new JTable();
-                DemoTabel demoGUI = new DemoTabel(tabel);
-                demoGUI.show();
+                //JTable tabel = new JTable();
+                //DemoTabel demoGUI = new DemoTabel(tabel);
+                //demoGUI.show();
+                //demoGUI.optieDB();
                 demoGUI.opties(alleTabellen);
                 
                 String qryPrepStat;
-                qryPrepStat = "SELECT * FROM [AuditBlackBox].[dbo].[" + demoGUI.getGekozenTabel() + "]";
+                qryPrepStat = "SELECT * FROM [" + kk + "].[dbo].[" + demoGUI.getGekozenTabel() + "]";
                 PreparedStatement prepStat = conn.prepareStatement(qryPrepStat);
                 ResultSet res = prepStat.executeQuery();
                 setTableSimple(res, tabel); 
@@ -127,13 +137,13 @@ public class DemoDB13 {
             System.out.println("Fout: " + e.getMessage());
         }
         
-        catch (IOException e) {
+        /*catch (IOException e) {
             System.out.println("Fout: kan " + propertiesFile + " niet openen.");
         }
         
         catch (ClassNotFoundException e) {
             System.out.println("Fout: JDBC-driver niet gevonden.");
-        }
+        }*/
     }
 
    

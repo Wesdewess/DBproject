@@ -36,8 +36,6 @@ public class Query2 {
     //Een ArrayList van ResultSet
     private static ArrayList<String> test = new ArrayList<String>();
     
-    
-    
     public String getQuery(int i){
         String x = "";
         try {
