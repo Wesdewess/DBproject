@@ -22,43 +22,46 @@ import java.util.Properties;
 import javax.sql.rowset.CachedRowSet;
 
 /**
- *
- * @author Stijn
+ * @author Wessel Bakker 17094801
+ * @author Wouter Wesselink 17133041
+ * @author Stijn Appúnn 17080932
+ * @author Remon Turk 17071682
  */
 public class Query {
     
-    //Query() voert alle query's achterelkaar uit
     public static void query(){
         Connection conn;
         Statement stat;
         
         try{
+            //De connectie met de database word gemaakt
             init("MSSQL.properties");
             conn = getConnection();
 
             try{
+                //De text file met de queries om de signalen op te halen word geladen
                 FileInputStream in = new FileInputStream("DB.properties");
                 Properties props = new Properties();
                 props.load(in);
 
                 try{
+                    //De datum word opgehaald en geformateert
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
                     Date date = new Date();
                     int count = 0;
                     String values = "";
-
+                    
                     for (int i = 1; i <= 10; i++){
-                        String q = Integer.toString(i);
-                        String query = props.getProperty(q);
-                        
-                        String signaalQuery = "SELECT * FROM [Signalen].[dbo].[Signaal] WHERE Signaal_ID = " + i + ";";
                         stat = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                        ResultSet current = stat.executeQuery(signaalQuery);
+                        
+                        //Deze query haalt alle signalen uit de database
+                        ResultSet current = stat.executeQuery("SELECT * FROM [Signalen].[dbo].[Signaal] WHERE Signaal_ID = " + i + ";");
+                        
                         ResultSetMetaData metaDataCurrent = current.getMetaData();
                         String columnNameCurrent = metaDataCurrent.getColumnLabel(1);
                         
                         stat = conn.createStatement();
-                        ResultSet res = stat.executeQuery(query);
+                        ResultSet res = stat.executeQuery(props.getProperty(Integer.toString(i)));
                         
                         ResultSetMetaData metaDataNew = res.getMetaData();
                         String columnNameNew = metaDataNew.getColumnLabel(1);
@@ -69,30 +72,27 @@ public class Query {
                         while (current.next()) {
                             boolean present = false;
                             while (rowset.next()) {
-                                //compare
+                                //De rowset word vergeleken met current. Alles wat zowel in current als rowset voor komt word het uit rowset verwijderd
                                 if (current.getString(columnNameCurrent).equals(rowset.getString(columnNameNew))) {
                                     present = true;
                                     rowset.deleteRow();
                                     break;
                                 }
                             }
-                            
                             if (!present) {
-                                //update end date
+                                //De enddate word geupdate
                                 date = new Date();
                                 current.updateString(metaDataCurrent.getColumnLabel(4), dateFormat.format(date));
                                 current.updateRow();
                             }                           
                             rowset.beforeFirst();
-                        }
-                        
-                        System.out.println("Klaar");
-                        
-                        //insert everything into that is still in the rowset in the database
+                        }                        
+                        //Deze while loop zet data klaar in rowset
                         while (rowset.next()) {
                             count++;
                             date = new Date();
                             values += "('" + (rowset.getString(columnNameNew)) + "', '" + i + "', '" + dateFormat.format(date) + "'), ";
+                            //Dit if statement zet alles uit de rowset in een query en voert deze uit, de query zet de signalen in de signaal database
                             if (count == 1000) {
                                 count = 0;
                                 
@@ -103,15 +103,14 @@ public class Query {
                                 values = "";
                             }
                         }
-                        
+                        //Dit if statement zet de rest van de rowset in een query, de query zet de signalen in de signaal database
                         if (i == 10 && count > 0) {
                             stat = conn.createStatement();
                             String query2 = "INSERT INTO [Signalen].[dbo].[Signaal] (Username, Signaal_ID, Start_Datum_Signaal)" +
                                 " VALUES " + values.substring(0, values.length() - 2) + ";";
                             stat.executeUpdate(query2);
-                        }
+                        }                        
                     }
-
                 }
                 finally {
                     conn.close();
