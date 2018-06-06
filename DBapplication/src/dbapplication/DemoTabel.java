@@ -114,16 +114,18 @@ public class DemoTabel {
         JTextArea area = new JTextArea(50,50);
         area.setEditable(false);
         area.setFont(new Font("Serif", Font.PLAIN, 20));
-        area.append("# 1 = RDS User naam in Profit bestaat niet in de AD\n" +
-                    "# 2 = Medewerker uit dienst in Profit, account is in AD actief\n" +
-                    "# 3 = AD Account, onbekend in Profit\n" +
-                    "# 4 = RDS naam in Clevernew is niet ingevuld\n" +
-                    "# 5 = RDS naam in Clevernew bestaat niet in AD\n" +
-                    "# 6 = Medewerker uit dienst in CleverNew, account in AD actief\n" +
-                    "# 7 = AD Account, onbekend in Clever\n" +
-                    "# 8 = RDS User naam in Profit bestaat niet in Clever\n" +
-                    "# 9 = Medewerker uit dienst in Profit, account is in Clever actief\n" +
-                    "# 10 = RDS User naam in Clever bestaat niet in Afas Profit");
+        area.append("                            BUSINESS RULES                              \n" +
+                    "------------------------------------------------------------------------\n" +
+                    "1 = RDS User naam in Profit bestaat niet in de AD\n" +
+                    "2 = Medewerker uit dienst in Profit, account is in AD actief\n" +
+                    "3 = AD Account, onbekend in Profit\n" +
+                    "4 = RDS naam in Clevernew is niet ingevuld\n" +
+                    "5 = RDS naam in Clevernew bestaat niet in AD\n" +
+                    "6 = Medewerker uit dienst in CleverNew, account in AD actief\n" +
+                    "7 = AD Account, onbekend in Clever\n" +
+                    "8 = RDS User naam in Profit bestaat niet in Clever\n" +
+                    "9 = Medewerker uit dienst in Profit, account is in Clever actief\n" +
+                    "10 = RDS User naam in Clever bestaat niet in Afas Profit");
         contentPane2.add(area);
         myFrame.add(contentPane, BorderLayout.NORTH);
         myFrame.add(contentPane2, BorderLayout.EAST);
@@ -184,6 +186,10 @@ public class DemoTabel {
 
     public static String getGekozenTabel() {
         return gekozenTabel;
+    }
+    
+    public void wegschrijven(){
+        Query.query();
     }
     
 }

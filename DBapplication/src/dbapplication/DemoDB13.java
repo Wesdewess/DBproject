@@ -60,6 +60,7 @@ public class DemoDB13 {
         try {
             JTable tabel = new JTable();
             DemoTabel demoGUI = new DemoTabel(tabel);
+            demoGUI.wegschrijven();
             demoGUI.show();
             demoGUI.optieDB();
             
