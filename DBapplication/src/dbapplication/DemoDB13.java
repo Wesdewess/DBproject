@@ -12,6 +12,7 @@
 package dbapplication;
 
 import java.io.IOException;
+import static java.lang.Thread.sleep;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
@@ -22,6 +23,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -32,7 +35,7 @@ import javax.swing.table.TableColumn;
  * @author W Pijnacker Hordijk
  */
 public class DemoDB13 {
-    static ArrayList<String> alleTabellen = new ArrayList<String>();
+    private static ArrayList<String> alleTabellen = new ArrayList<String>();
 
     /**
      * @param args no command line arguments
@@ -84,17 +87,36 @@ public class DemoDB13 {
                 demoGUI.show();
                 demoGUI.opties(alleTabellen);
                 
-                String qryPrepStat = "SELECT * FROM [AuditBlackBox].[dbo].[" + demoGUI.getGekozenTabel() + "]";
+                String qryPrepStat;
+                qryPrepStat = "SELECT * FROM [AuditBlackBox].[dbo].[" + demoGUI.getGekozenTabel() + "]";
                 PreparedStatement prepStat = conn.prepareStatement(qryPrepStat);
+                ResultSet res = prepStat.executeQuery();
+                setTableSimple(res, tabel); 
+                
+                //Nu kan je hier zelf een query uitzoeken
+                qryPrepStat = demoGUI.getQuery();
+                while(qryPrepStat == null){
+                    qryPrepStat = demoGUI.getQuery();
+                    System.out.println(demoGUI.getQuery());
+                    if(qryPrepStat != null){
+                        break;
+                    }
+                    try {
+                        sleep(1000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(DemoDB13.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                PreparedStatement prepStat1 = conn.prepareStatement(qryPrepStat);
 
                 //System.out.print("Geef woonplaats: ");
                 //String woonplaats = keyboard.nextLine();
                 //prepStat.setString(1, woonplaats);
-                ResultSet res = prepStat.executeQuery();
+                ResultSet res1 = prepStat1.executeQuery();
                 // uncomment one of the following two lines
-                setTableSimple(res, tabel);  
+                setTableSimple(res1, tabel);  
                 //setTable(res, tabel);
-
+                
             } finally {
                 conn.close();
                 System.out.println("... verbinding afgesloten.");
@@ -113,6 +135,8 @@ public class DemoDB13 {
             System.out.println("Fout: JDBC-driver niet gevonden.");
         }
     }
+
+   
     
     /**
      * Puts the contents of a result set into a table<br>

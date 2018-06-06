@@ -36,8 +36,13 @@ public class DemoTabel {
     JFrame myFrame;
     int size;
     Font myFont;
-    
     static String gekozenTabel;
+    static String query;
+
+    public static String getQuery() {
+        return query;
+    }
+    
     
     public DemoTabel (JTable table){
         myTable = table;
@@ -54,14 +59,37 @@ public class DemoTabel {
         zoekButton.setPreferredSize(new Dimension(200, 35));
         
         //moet hier een methode van maken zodat ik met get en set selectedItem de geselecteerde value ook echt in het display tonen want zo lukt dat niet
-        String[] signalen = new String[] {"Signaal1", "Signaal2",
-                                    "Signaal3", "Signaal4"};
+        String[] signalen = new String[] {"Signaal1", "Signaal2", "Signaal3", "Signaal4", "Signaal5", "Signaal6", "Signaal7", "Signaal8", "Signaal9", "Signaal10"};
  
         JComboBox<String> signalenLijst = new JComboBox<>(signalen);
         signalenLijst.setPreferredSize(new Dimension(200, 35));
         //Zodat er ook wat wordt gedaan wanneer een "optie" wordt geselecteerd
         signalenLijst.addActionListener(e -> {
-            System.out.println((String) signalenLijst.getSelectedItem());
+            Query2 x = new Query2();
+            String signaal = (String) signalenLijst.getSelectedItem();
+            switch(signaal){
+                case "Signaal1" : query = x.getQuery(1);
+                break;
+                case "Signaal2" : query = x.getQuery(2);
+                break;
+                case "Signaal3" : query = x.getQuery(4);
+                break;
+                case "Signaal4" : query = x.getQuery(4);
+                break;
+                case "Signaal5" : query = x.getQuery(5);
+                break;
+                case "Signaal6" : query = x.getQuery(6);
+                break;
+                case "Signaal7" : query = x.getQuery(7);
+                break;
+                case "Signaal8" : query = x.getQuery(8);
+                break;
+                case "Signaal9" : query = x.getQuery(9);
+                break;
+                case "Signaal10" : query = x.getQuery(10);
+                break;
+                default : System.out.println("Niet geldige invoer..");
+            }
         });
         
         JPanel contentPane = new JPanel(new BorderLayout());

@@ -9,6 +9,7 @@ import com.sun.rowset.CachedRowSetImpl;
 import static dbapplication.SimpleDataSource.getConnection;
 import static dbapplication.SimpleDataSource.init;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.sql.Connection;
@@ -34,6 +35,23 @@ public class Query2 {
     
     //Een ArrayList van ResultSet
     private static ArrayList<String> test = new ArrayList<String>();
+    
+    
+    
+    public String getQuery(int i){
+        String x = "";
+        try {
+            FileInputStream in = new FileInputStream("DB.properties");
+            Properties props = new Properties();
+            props.load(in);
+            x = props.getProperty(Integer.toString(i));
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getStackTrace());
+        }catch(IOException e){
+            System.out.println(e.getStackTrace());
+        }     
+        return x;
+    }
     
     //in query() wordt gekozen wat er moet gebeuren
     public static void query2(){
