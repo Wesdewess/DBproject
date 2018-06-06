@@ -114,7 +114,7 @@ public class Query {
                 }
                 finally {
                     conn.close();
-                    System.out.println("verbinding verbroken");
+                    System.out.println("verbinding verbroken //Query.query()");
                 }
             }
             catch (IOException e){
