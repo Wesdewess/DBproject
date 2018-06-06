@@ -77,10 +77,10 @@ public class DemoDB13 {
 
                 stat.execute(qryUse);
                 System.out.println("database gevonden...");
-
                 
                 JTable tabel = new JTable();
                 DemoTabel demoGUI = new DemoTabel(tabel);
+                demoGUI.wegschrijven();
                 demoGUI.show();
                 demoGUI.opties(alleTabellen);
                 

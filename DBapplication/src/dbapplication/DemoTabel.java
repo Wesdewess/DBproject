@@ -134,4 +134,7 @@ public class DemoTabel {
         return gekozenTabel;
     }
     
+    public void wegschrijven(){
+        Query.query();
+    }
 }
