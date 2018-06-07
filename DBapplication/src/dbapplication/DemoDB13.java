@@ -165,6 +165,10 @@ public class DemoDB13 {
    public static String getUsername(){
        return username;
    }
+   
+   public static int getSignaal(){
+       return signaal;
+   }
     
     /**
      * Puts the contents of a result set into a table<br>

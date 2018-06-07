@@ -29,7 +29,8 @@ import javax.sql.rowset.CachedRowSet;
  */
 public class Query {
     
-    String username = "";
+    private String username;
+    private int signaal;
     
     public static void query(){
         Connection conn;
@@ -137,12 +138,10 @@ public class Query {
         
 
     }
-<<<<<<< HEAD
-        public void organisatieQuery(){
-            username = DemoDB13.getUsername();
-=======
+
         public void organisatieQueryCode(){
->>>>>>> b86bb8980e1a1ebf393042700749c6bacd07b862
+            username = DemoDB13.getUsername();
+            signaal = DemoDB13.getSignaal();
             String query = "SELECT B.[Naam]" +
                            " FROM [AuditBlackBox].[dbo].[PersoonCodes] JOIN [AuditBlackBox].[dbo].[Medewerker] ON [PersoonCodes].[PersoonID] = [Medewerker].[PersoonID]" +
                            " JOIN [AuditBlackBox].[dbo].[Werkzaam] ON [Werkzaam].[MedewerkerID] = [Medewerker].[ID]" +
