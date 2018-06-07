@@ -143,23 +143,17 @@ public class Query {
             //username = DemoDB13.getUsername();
             //signaal = DemoDB13.getSignaal();
             username = x;
-<<<<<<< HEAD
             /*String query = "SELECT B.[Naam], B.[Niveau]" +
-=======
             String query = "SELECT B.[Naam]" +
->>>>>>> 42723c283f666b0cd90747f3269ebf9f2d09417e
                            " FROM [AuditBlackBox].[dbo].[PersoonCodes] JOIN [AuditBlackBox].[dbo].[Medewerker] ON [PersoonCodes].[PersoonID] = [Medewerker].[PersoonID]" +
                            " JOIN [AuditBlackBox].[dbo].[Werkzaam] ON [Werkzaam].[MedewerkerID] = [Medewerker].[ID]" +
                            " JOIN [AuditBlackBox].[dbo].[OrganisatieEenheid] A ON [Werkzaam].[OrganisatieEenheidID] = A.[OuderUnitID]" +
                            " JOIN [AuditBlackBox].[dbo].[OrganisatieEenheid] B ON B.[OuderUnitID] = A.[OuderUnitID]" +
                            " WHERE CodesoortenID = 981" +
-<<<<<<< HEAD
-                           " AND [PersoonCodes].[code] = " + username;*/
-            String query = "SELECT * FROM [AuditBlackBox].[dbo].[AD-Export]";
-=======
+                           " AND [PersoonCodes].[code] = " + username;
                            " AND [PersoonCodes].[code] = " + "'"+ username + "'";
-            //String query = "Select * from [AuditBlackBox].[dbo].[AD-Export]";
->>>>>>> 42723c283f666b0cd90747f3269ebf9f2d09417e
+                           */
+            String query = "Select * from [AuditBlackBox].[dbo].[AD-Export]";
             return query;
         }
         

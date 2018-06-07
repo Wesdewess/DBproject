@@ -98,7 +98,7 @@ public class DemoDB13 {
                 while(qryPrepStat == null){
 
                     int row = tabel.getSelectedRow();                    
-                    if(row == -1){
+                    if(row < 0){
                         try {
                         sleep(3000);
                         row = tabel.getSelectedRow();
