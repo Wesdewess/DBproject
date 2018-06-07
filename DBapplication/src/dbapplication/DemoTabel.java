@@ -59,8 +59,13 @@ public class DemoTabel {
         JTextField textField = new JTextField("Username..");
         textField.setPreferredSize(new Dimension(200, 35));
         
-        JButton zoekButton = new JButton("Zoek");
+        JButton zoekButton = new JButton("Wegschrijven..");
         zoekButton.setPreferredSize(new Dimension(200, 35));
+        zoekButton.addActionListener(e -> {
+            Query queryyyy = new Query();
+            queryyyy.query();
+            JOptionPane.showMessageDialog(myFrame, "Weggeschreven");
+        });
         
         //moet hier een methode van maken zodat ik met get en set selectedItem de geselecteerde value ook echt in het display tonen want zo lukt dat niet
         String[] signalen = new String[] {"Signaal1", "Signaal2", "Signaal3", "Signaal4", "Signaal5", "Signaal6", "Signaal7", "Signaal8", "Signaal9", "Signaal10"};
