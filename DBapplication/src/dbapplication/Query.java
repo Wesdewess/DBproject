@@ -143,14 +143,14 @@ public class Query {
             //username = DemoDB13.getUsername();
             //signaal = DemoDB13.getSignaal();
             username = x;
-            /*String query = "SELECT B.[Naam]" +
+            String query = "SELECT B.[Naam]" +
                            " FROM [AuditBlackBox].[dbo].[PersoonCodes] JOIN [AuditBlackBox].[dbo].[Medewerker] ON [PersoonCodes].[PersoonID] = [Medewerker].[PersoonID]" +
                            " JOIN [AuditBlackBox].[dbo].[Werkzaam] ON [Werkzaam].[MedewerkerID] = [Medewerker].[ID]" +
                            " JOIN [AuditBlackBox].[dbo].[OrganisatieEenheid] A ON [Werkzaam].[OrganisatieEenheidID] = A.[OuderUnitID]" +
                            " JOIN [AuditBlackBox].[dbo].[OrganisatieEenheid] B ON B.[OuderUnitID] = A.[OuderUnitID]" +
                            " WHERE CodesoortenID = 981" +
-                           " AND [PersoonCodes].[code] = " + username;*/
-            String query = "Select * from [AuditBlackBox].[dbo].[AD-Export]";
+                           " AND [PersoonCodes].[code] = " + "'"+ username + "'";
+            //String query = "Select * from [AuditBlackBox].[dbo].[AD-Export]";
             return query;
         }
         
