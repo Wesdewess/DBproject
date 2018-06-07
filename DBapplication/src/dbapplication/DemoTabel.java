@@ -32,6 +32,7 @@ import javax.swing.JTextField;
  * @author W Pijnacker Hordijk
  */
 public class DemoTabel {
+
     JTable myTable;
     JFrame myFrame;
     int size;
@@ -192,4 +193,14 @@ public class DemoTabel {
         Query.query();
     }
     
+    String getUsername(){
+        String username = "";
+        int row = myTable.getSelectedRow();
+        int column = myTable.getSelectedColumn();
+        if(row > 0 && column > 0){
+        username = myTable.getValueAt(row,column).toString();
+        }
+        
+        return username;
+    }
 }

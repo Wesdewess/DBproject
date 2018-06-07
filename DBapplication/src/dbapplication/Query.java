@@ -28,8 +28,8 @@ import javax.sql.rowset.CachedRowSet;
  * @author Remon Turk 17071682
  */
 public class Query {
-    
-    String username = "";
+    static String username; 
+//    String username = ""; 
     
     public static void query(){
         Connection conn;
@@ -137,7 +137,9 @@ public class Query {
         
 
     }
-        public void organisatieQuery(){
+    public void organisatieQuery(){
+        username = DemoTabel.getUsername();
+        if(!username.equals("")){
             String query = "SELECT B.[Naam]" +
                            " FROM [AuditBlackBox].[dbo].[PersoonCodes] JOIN [AuditBlackBox].[dbo].[Medewerker] ON [PersoonCodes].[PersoonID] = [Medewerker].[PersoonID]" +
                            " JOIN [AuditBlackBox].[dbo].[Werkzaam] ON [Werkzaam].[MedewerkerID] = [Medewerker].[ID]" +
@@ -146,6 +148,6 @@ public class Query {
                            " WHERE CodesoortenID = 981" +
                            " AND [PersoonCodes].[code] = " + username;
         }
+    }
 }
-
 
