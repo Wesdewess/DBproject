@@ -11,7 +11,6 @@
  */
 package dbapplication;
 
-import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -22,13 +21,11 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
 
 /**
  * Demonstration of JTable
@@ -43,14 +40,7 @@ public class DemoDB13 {
     /**
      * @param args no command line arguments
      */
-    public static void main(String[] args) {
-        /*Scanner keyboard = new Scanner(System.in);
-        String command = "";
-        while (!command.equals("1") && !command.equals("2")){
-            System.out.print("Kies SQL-server 1(MySQL) of 2(MS SQL): ");
-            command = keyboard.nextLine();
-        }*/
-        
+    public static void main(String[] args) {       
         String command = "2";
         String propertiesFile;
         if (command.equals("1")){
@@ -63,10 +53,10 @@ public class DemoDB13 {
             Query updatenBijOpstarten = new Query();
             updatenBijOpstarten.query();
             JTable tabel = new JTable();
+            
             DemoTabel demoGUI = new DemoTabel(tabel);
             demoGUI.show();
             demoGUI.optieDB();
-            
             String gekozenDB = demoGUI.getGekozenDB();
             String connectionString = "jdbc:sqlserver://localhost:1433;database=" + gekozenDB;
             Connection conn = DriverManager.getConnection(connectionString, "testuser", "testuser");
@@ -88,17 +78,9 @@ public class DemoDB13 {
                     //System.out.println(rs.getString("TABLE_NAME"));
                     alleTabellen.add(rs.getString("TABLE_NAME"));
                 }
-                
-                //String qryUse = "USE " + kk + ";";
 
-                //stat.execute(qryUse);
                 System.out.println("database gevonden...");
 
-                
-                //JTable tabel = new JTable();
-                //DemoTabel demoGUI = new DemoTabel(tabel);
-                //demoGUI.show();
-                //demoGUI.optieDB();
                 demoGUI.opties(alleTabellen);
                 
                 String qryPrepStat;
@@ -107,14 +89,15 @@ public class DemoDB13 {
                 ResultSet res = prepStat.executeQuery();
                 setTableSimple(res, tabel); 
                 
+                PreparedStatement prepStat1 = conn.prepareStatement(qryPrepStat);
+                ResultSet res1 = prepStat1.executeQuery();
+                setTableSimple(res1, tabel);  
+                tabel.getTableHeader().setReorderingAllowed(false);
                 //Nu kan je hier zelf een query uitzoeken
                 qryPrepStat = demoGUI.getQuery();
                 while(qryPrepStat == null){
-//                    qryPrepStat = demoGUI.getQuery();
-//                    System.out.println(demoGUI.getQuery());
-                    int row = tabel.getSelectedRow();
-                    int column = tabel.getSelectedColumn();
-                    
+
+                    int row = tabel.getSelectedRow();                    
                     if(row == -1){
                         try {
                         sleep(3000);
@@ -134,49 +117,33 @@ public class DemoDB13 {
                         qryPrepStat = updatenBijOpstarten.organisatieQueryCode(username);
                     }
                 }
-                PreparedStatement prepStat1 = conn.prepareStatement(qryPrepStat);
-
-                //System.out.print("Geef woonplaats: ");
-                //String woonplaats = keyboard.nextLine();
-                //prepStat.setString(1, woonplaats);
-                ResultSet res1 = prepStat1.executeQuery();
-                // uncomment one of the following two lines
-                setTableSimple(res1, tabel);  
-                //setTable(res, tabel);
-                
             } finally {
                 conn.close();
                 System.out.println("... verbinding afgesloten.");
             }
-        } 
+        }
         
         catch (SQLException e) {
             System.out.println("Fout: " + e.getMessage());
         }
-        
-        /*catch (IOException e) {
-            System.out.println("Fout: kan " + propertiesFile + " niet openen.");
-        }
-        
-        catch (ClassNotFoundException e) {
-            System.out.println("Fout: JDBC-driver niet gevonden.");
-        }*/
+
     }
 
-   public static String getUsername(){
-       return username;
-   }
+    public static String getUsername(){
+        return username;
+    }
    
-   public static int getSignaal(){
+    public static int getSignaal(){
        return signaal;
-   }
+    }
     
     /**
      * Puts the contents of a result set into a table<br>
      * simple version
-     * @param result the result set
+     * @param rs
      * @param table the table
      * @author W. Pijnacker Hordijk
+     * @throws java.sql.SQLException
      */
     public static void setTableSimple(ResultSet rs, JTable table) throws SQLException {
         ResultSetMetaData metaData = rs.getMetaData();
@@ -198,69 +165,11 @@ public class DemoDB13 {
             data.add(vector);
         }
 
-        table.setModel(new DefaultTableModel(data, columns));
-    }
-  
-    /**
-     * Puts the contents of a result set in to a table<br>
-     * extended version:<br>
-     * 1. table cells can't be edited<br>
-     * 2. columns are formatted depending on data type<br>
-     * 3. column widths are adjusted to length of header and field size
-     * @param result the result set
-     * @author W. Pijnacker Hordijk
-     */
-    public static void setTable(ResultSet rs, JTable table) throws SQLException {
-        ResultSetMetaData metaData = rs.getMetaData();
-
-        // names of columns
-        Vector<String> columns = new Vector<String>();
-        int columnCount = metaData.getColumnCount();
-        for (int column = 1; column <= columnCount; column++) {
-            columns.add(metaData.getColumnName(column));
-        }
-
-        // data of the table
-        Vector<Vector<Object>> data = new Vector<Vector<Object>>();
-        while (rs.next()) {
-            Vector<Object> vector = new Vector<Object>();
-            for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
-                vector.add(rs.getObject(columnIndex));
-            }
-            data.add(vector);
-        }
-
-        // create anonymous DefaultTableModel class to override two methods
-        // official approach should be "class MyTableModel extends AbstractTableModel {..."
-        DefaultTableModel model = new DefaultTableModel(data, columns) {
-            // override isCellEditable with code snippet from 
-            // http://www.codejava.net/java-se/swing/a-simple-jtable-example-for-display
+        table.setModel(new DefaultTableModel(data, columns){
             @Override
-            public boolean isCellEditable(int row, int column)
-            {
-                return false;
+            public boolean isCellEditable(int row, int column){
+            return false;
             }
-            // override getColumnClass with code snippet from
-            // https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/TableDemoProject/src/components/TableDemo.java 
-            @Override
-            public Class<?> getColumnClass(int columnIndex)
-            {
-                return getValueAt(0, columnIndex).getClass();
-            }
-        };
-
-        table.setModel(model);
-
-        // adjust preferred width of the columns
-        TableColumn column = null;
-        for (int i = 0; i < columnCount; i++) {
-            column = table.getColumnModel().getColumn(i);
-            if (metaData.getColumnDisplaySize(i + 1) > metaData.getColumnLabel(i + 1).length()) {
-                column.setPreferredWidth(10*metaData.getColumnDisplaySize(i + 1));
-            } else {
-                column.setPreferredWidth(10*metaData.getColumnLabel(i + 1).length());
-            }
-        }
+        });   
     }
-
 }
