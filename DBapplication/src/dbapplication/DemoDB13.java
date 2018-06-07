@@ -36,6 +36,8 @@ import javax.swing.table.TableColumn;
  * @author W Pijnacker Hordijk
  */
 public class DemoDB13 {
+    private static String username;
+    private static int signaal;
     private static ArrayList<String> alleTabellen = new ArrayList<String>();
 
     /**
@@ -108,31 +110,27 @@ public class DemoDB13 {
                 //Nu kan je hier zelf een query uitzoeken
                 qryPrepStat = demoGUI.getQuery();
                 while(qryPrepStat == null){
-                    qryPrepStat = demoGUI.getQuery();
-                    System.out.println(demoGUI.getQuery());
+//                    qryPrepStat = demoGUI.getQuery();
+//                    System.out.println(demoGUI.getQuery());
                     int row = tabel.getSelectedRow();
                     int column = tabel.getSelectedColumn();
                     
-                    if(row == -1 && column == -1){
+                    if(row == -1){
                         try {
                         sleep(3000);
                         row = tabel.getSelectedRow();
-                        column = tabel.getSelectedColumn();
                         } catch (InterruptedException ex) {
                             Logger.getLogger(DemoDB13.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    
-                    System.out.println("Selected row: " + tabel.getSelectedRow());
-                    System.out.println("Selected Column: " + tabel.getSelectedColumn());
-                    System.out.println("Value at: " + tabel.getValueAt(row, column));
-                    if(qryPrepStat != null){
-                        break;
-                    }
-                    try {
-                        sleep(1000);
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(DemoDB13.class.getName()).log(Level.SEVERE, null, ex);
+                    else{                       
+                        username = tabel.getValueAt(row, 0).toString();
+                        signaal = (int) tabel.getValueAt(row, 1);
+                        System.out.println(username);
+                        System.out.println(signaal);
+                        
+                        System.out.println("Selected row: " + tabel.getSelectedRow());
+                        System.out.println("Value at: " + tabel.getValueAt(row, 0));
                     }
                 }
                 PreparedStatement prepStat1 = conn.prepareStatement(qryPrepStat);
@@ -164,7 +162,9 @@ public class DemoDB13 {
         }*/
     }
 
-   
+   public static String getUsername(){
+       return username;
+   }
     
     /**
      * Puts the contents of a result set into a table<br>

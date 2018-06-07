@@ -138,6 +138,7 @@ public class Query {
 
     }
         public void organisatieQuery(){
+            username = DemoDB13.getUsername();
             String query = "SELECT B.[Naam]" +
                            " FROM [AuditBlackBox].[dbo].[PersoonCodes] JOIN [AuditBlackBox].[dbo].[Medewerker] ON [PersoonCodes].[PersoonID] = [Medewerker].[PersoonID]" +
                            " JOIN [AuditBlackBox].[dbo].[Werkzaam] ON [Werkzaam].[MedewerkerID] = [Medewerker].[ID]" +
