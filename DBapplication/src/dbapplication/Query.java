@@ -29,6 +29,8 @@ import javax.sql.rowset.CachedRowSet;
  */
 public class Query {
     
+    String username = "";
+    
     public static void query(){
         Connection conn;
         Statement stat;
@@ -132,5 +134,18 @@ public class Query {
         catch (ClassNotFoundException e) {
             System.out.println("Fout: JDBC-driver niet gevonden.");
         }
+        
+
     }
+        public void organisatieQuery(){
+            String query = "SELECT B.[Naam]" +
+                           " FROM [AuditBlackBox].[dbo].[PersoonCodes] JOIN [AuditBlackBox].[dbo].[Medewerker] ON [PersoonCodes].[PersoonID] = [Medewerker].[PersoonID]" +
+                           " JOIN [AuditBlackBox].[dbo].[Werkzaam] ON [Werkzaam].[MedewerkerID] = [Medewerker].[ID]" +
+                           " JOIN [AuditBlackBox].[dbo].[OrganisatieEenheid] A ON [Werkzaam].[OrganisatieEenheidID] = A.[OuderUnitID]" +
+                           " JOIN [AuditBlackBox].[dbo].[OrganisatieEenheid] B ON B.[OuderUnitID] = A.[OuderUnitID]" +
+                           " WHERE CodesoortenID = 981" +
+                           " AND [PersoonCodes].[code] = " + username;
+        }
 }
+
+
