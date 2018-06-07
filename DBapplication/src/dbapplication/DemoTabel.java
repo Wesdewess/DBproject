@@ -189,6 +189,10 @@ public class DemoTabel {
         return gekozenTabel;
     }
     
+<<<<<<< HEAD
+=======
+
+>>>>>>> 36ca5fb6a8da09c3534616080e2702ed9784c17f
     public void wegschrijven(){
         Query.query();
     }
