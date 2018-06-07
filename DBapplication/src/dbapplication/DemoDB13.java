@@ -141,6 +141,10 @@ public class DemoDB13 {
                 //prepStat.setString(1, woonplaats);
                 ResultSet res1 = prepStat1.executeQuery();
                 // uncomment one of the following two lines
+                //demoGUI.setSignalenTabel(tabel);
+                //System.out.println("Tabel in db13: " + tabel);
+                //demoGUI.show();
+                demoGUI.show2(tabel);
                 setTableSimple(res1, tabel);  
                 //setTable(res, tabel);
                 

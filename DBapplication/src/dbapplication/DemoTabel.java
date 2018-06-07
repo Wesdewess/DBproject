@@ -33,12 +33,14 @@ import javax.swing.JTextField;
  */
 public class DemoTabel {
     JTable myTable;
+    JTable signalenTable;
     JFrame myFrame;
     int size;
     Font myFont;
     static String gekozenDB;
     static String gekozenTabel;
     static String query;
+    JPanel contentPane2 = new JPanel(new BorderLayout());
 
     public static String getQuery() {
         return query;
@@ -109,9 +111,14 @@ public class DemoTabel {
         contentPane.add(signalenLijst, BorderLayout.LINE_END);
         
         
-        JPanel contentPane2 = new JPanel(new BorderLayout());
+        //JPanel contentPane2 = new JPanel(new BorderLayout());
         
-        JTextArea area = new JTextArea(50,50);
+        //signalenTable = myTable;
+        //contentPane2.add(new JScrollPane(signalenTable), BorderLayout.CENTER);
+        //System.out.println("signalenTable: " + signalenTable);
+        
+        
+        JTextArea area = new JTextArea();
         area.setEditable(false);
         area.setFont(new Font("Serif", Font.PLAIN, 20));
         area.append("                            BUSINESS RULES                              \n" +
@@ -126,7 +133,7 @@ public class DemoTabel {
                     "8 = RDS User naam in Profit bestaat niet in Clever\n" +
                     "9 = Medewerker uit dienst in Profit, account is in Clever actief\n" +
                     "10 = RDS User naam in Clever bestaat niet in Afas Profit");
-        contentPane2.add(area);
+        contentPane2.add(area, BorderLayout.NORTH);
         myFrame.add(contentPane, BorderLayout.NORTH);
         myFrame.add(contentPane2, BorderLayout.EAST);
         
@@ -145,8 +152,17 @@ public class DemoTabel {
         //System.out.println(selectedSignaal);
     }
     
+    public void setSignalenTabel(JTable signaalTabel){
+        signalenTable = signaalTabel;
+    }
+    
     public void show(){
         myFrame.setVisible(true);
+    }
+    
+    public void show2(JTable tabel){
+        contentPane2.add(tabel, BorderLayout.SOUTH);
+        myFrame.repaint();
     }
     
     public void optieDB(){
