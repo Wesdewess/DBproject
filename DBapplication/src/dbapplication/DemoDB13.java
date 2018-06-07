@@ -60,10 +60,6 @@ public class DemoDB13 {
             String gekozenDB = demoGUI.getGekozenDB();
             String connectionString = "jdbc:sqlserver://localhost:1433;database=" + gekozenDB;
             Connection conn = DriverManager.getConnection(connectionString, "testuser", "testuser");
-            
-            /*SimpleDataSource.init(propertiesFile);
-            Connection conn = SimpleDataSource.getConnection();
-            System.out.println("verbinding gemaakt middels " + propertiesFile + "...");*/
 
             try {
                 Statement stat = conn.createStatement();
@@ -75,7 +71,6 @@ public class DemoDB13 {
                 
         
                 while (rs.next()) {
-                    //System.out.println(rs.getString("TABLE_NAME"));
                     alleTabellen.add(rs.getString("TABLE_NAME"));
                 }
 
@@ -148,14 +143,14 @@ public class DemoDB13 {
     public static void setTableSimple(ResultSet rs, JTable table) throws SQLException {
         ResultSetMetaData metaData = rs.getMetaData();
         
-        // names of columns
+        //namen van de kollomen
         Vector<String> columns = new Vector<String>();
         int columnCount = metaData.getColumnCount();
         for (int column = 1; column <= columnCount; column++) {
             columns.add(metaData.getColumnName(column));
         }
 
-        // data of the table
+        //data van het tabel
         Vector<Vector<Object>> data = new Vector<Vector<Object>>();
         while (rs.next()) {
             Vector<Object> vector = new Vector<Object>();
@@ -164,7 +159,7 @@ public class DemoDB13 {
             }
             data.add(vector);
         }
-
+        //maakt de cell niet editable
         table.setModel(new DefaultTableModel(data, columns){
             @Override
             public boolean isCellEditable(int row, int column){
