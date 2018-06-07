@@ -137,8 +137,12 @@ public class Query {
         
 
     }
+<<<<<<< HEAD
         public void organisatieQuery(){
             username = DemoDB13.getUsername();
+=======
+        public void organisatieQueryCode(){
+>>>>>>> b86bb8980e1a1ebf393042700749c6bacd07b862
             String query = "SELECT B.[Naam]" +
                            " FROM [AuditBlackBox].[dbo].[PersoonCodes] JOIN [AuditBlackBox].[dbo].[Medewerker] ON [PersoonCodes].[PersoonID] = [Medewerker].[PersoonID]" +
                            " JOIN [AuditBlackBox].[dbo].[Werkzaam] ON [Werkzaam].[MedewerkerID] = [Medewerker].[ID]" +
@@ -146,6 +150,15 @@ public class Query {
                            " JOIN [AuditBlackBox].[dbo].[OrganisatieEenheid] B ON B.[OuderUnitID] = A.[OuderUnitID]" +
                            " WHERE CodesoortenID = 981" +
                            " AND [PersoonCodes].[code] = " + username;
+        }
+        
+        public void activiteitenQueryCode(){
+            String query =  "SELECT A.ActiviteitSoortID, A.Status,  COUNT(A.TeamID) AS Activiteiten" +
+                            " FROM [AuditBlackBox].[dbo].[PersoonCodes] PC JOIN [AuditBlackBox].[dbo].[TeamLid] TL ON TL.PersoonID = PC.PersoonID" +
+                            " JOIN [AuditBlackBox].[dbo].[Team] T ON T.ID = TL.TeamID" +
+                            " JOIN [AuditBlackBox].[dbo].[Activiteit] A ON a.teamID = t.ID" +
+                            " WHERE CodesoortenID = 981 AND [PersoonCodes].[code] = " + username +
+                            " GROUP BY A.ActiviteitSoortID, A.Status";
         }
 }
 
