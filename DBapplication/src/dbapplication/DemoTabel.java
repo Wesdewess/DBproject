@@ -189,6 +189,7 @@ public class DemoTabel {
         return gekozenTabel;
     }
     
+<<<<<<< HEAD
     public void wegschrijven(){
         Query.query();
     }
@@ -203,4 +204,6 @@ public class DemoTabel {
         
         return username;
     }
+=======
+>>>>>>> b4c3b9b18df8d79cc9ebca4f2a8bdea3fb7db008
 }

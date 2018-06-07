@@ -58,9 +58,10 @@ public class DemoDB13 {
         }
         
         try {
+            Query updatenBijOpstarten = new Query();
+            updatenBijOpstarten.query();
             JTable tabel = new JTable();
             DemoTabel demoGUI = new DemoTabel(tabel);
-            demoGUI.wegschrijven();
             demoGUI.show();
             demoGUI.optieDB();
             
