@@ -124,7 +124,7 @@ public class DemoDB13 {
                     }
                     
                     System.out.println("Selected row: " + tabel.getSelectedRow());
-                    System.out.println("Selected row: " + tabel.getSelectedColumn());
+                    System.out.println("Selected Column: " + tabel.getSelectedColumn());
                     System.out.println("Value at: " + tabel.getValueAt(row, column));
                     if(qryPrepStat != null){
                         break;
