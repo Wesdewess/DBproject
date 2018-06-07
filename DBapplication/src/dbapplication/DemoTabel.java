@@ -140,7 +140,7 @@ public class DemoTabel {
         
         myTable.setAutoCreateRowSorter(true);
         
-        
+
         //String selectedSignaal = (String) signalenLijst.getSelectedItem();
         //System.out.println(selectedSignaal);
     }

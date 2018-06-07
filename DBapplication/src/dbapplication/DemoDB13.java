@@ -110,6 +110,22 @@ public class DemoDB13 {
                 while(qryPrepStat == null){
                     qryPrepStat = demoGUI.getQuery();
                     System.out.println(demoGUI.getQuery());
+                    int row = tabel.getSelectedRow();
+                    int column = tabel.getSelectedColumn();
+                    
+                    if(row == -1 && column == -1){
+                        try {
+                        sleep(3000);
+                        row = tabel.getSelectedRow();
+                        column = tabel.getSelectedColumn();
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(DemoDB13.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    
+                    System.out.println("Selected row: " + tabel.getSelectedRow());
+                    System.out.println("Selected row: " + tabel.getSelectedColumn());
+                    System.out.println("Value at: " + tabel.getValueAt(row, column));
                     if(qryPrepStat != null){
                         break;
                     }
