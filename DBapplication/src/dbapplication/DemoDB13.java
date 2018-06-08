@@ -26,6 +26,8 @@ import java.util.Scanner;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -58,8 +60,22 @@ public class DemoDB13 {
         } else {
             propertiesFile = "MSSQL.properties";
         }
+        int ppp = 0;
         
         try {
+            // prompt the user to enter their name
+            String name = JOptionPane.showInputDialog("What's your name?");
+
+            // get the user's input. note that if they press Cancel, 'name' will be null
+            System.out.printf("The user's name is '%s'.\n", name);
+            String inlogName = name;
+            // prompt the user to enter their name
+            String password = JOptionPane.showInputDialog("What's your password?");
+
+            // get the user's input. note that if they press Cancel, 'name' will be null
+            System.out.printf("The user's password is '%s'.\n", password);
+            String inlogPassword = password;
+            
             Query updatenBijOpstarten = new Query();
             updatenBijOpstarten.query();
             JTable tabel = new JTable();
@@ -67,14 +83,15 @@ public class DemoDB13 {
             demoGUI.show();
             demoGUI.optieDB();
             
+            
             String gekozenDB = demoGUI.getGekozenDB();
             String connectionString = "jdbc:sqlserver://localhost:1433;database=" + gekozenDB;
-            Connection conn = DriverManager.getConnection(connectionString, "testuser", "testuser");
+            Connection conn = DriverManager.getConnection(connectionString, "" + inlogName + "", "" + inlogPassword + "");
             
             /*SimpleDataSource.init(propertiesFile);
             Connection conn = SimpleDataSource.getConnection();
             System.out.println("verbinding gemaakt middels " + propertiesFile + "...");*/
-
+            while(ppp < 10){
             try {
                 Statement stat = conn.createStatement();
                 
@@ -144,14 +161,18 @@ public class DemoDB13 {
                 //demoGUI.setSignalenTabel(tabel);
                 //System.out.println("Tabel in db13: " + tabel);
                 //demoGUI.show();
-                demoGUI.show2(tabel);
+                //demoGUI.show2(tabel);
+               
+                //demoGUI.backButton(tabel);
+               
                 setTableSimple(res1, tabel);  
                 //setTable(res, tabel);
                 
             } finally {
-                conn.close();
+                //conn.close();
+                ppp++;
                 System.out.println("... verbinding afgesloten.");
-            }
+            }}
         } 
         
         catch (SQLException e) {
@@ -166,6 +187,7 @@ public class DemoDB13 {
             System.out.println("Fout: JDBC-driver niet gevonden.");
         }*/
     }
+    
 
    public static String getUsername(){
        return username;

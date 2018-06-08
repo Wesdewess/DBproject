@@ -35,6 +35,7 @@ public class DemoTabel {
     JTable myTable;
     JTable signalenTable;
     JFrame myFrame;
+    JButton backButton;
     int size;
     Font myFont;
     static String gekozenDB;
@@ -58,8 +59,9 @@ public class DemoTabel {
         myFrame.setTitle("Tabel met resultaten:");
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        JTextField textField = new JTextField("Username..");
-        textField.setPreferredSize(new Dimension(200, 35));
+        //JTextField textField = new JTextField("Username..");
+        backButton = new JButton("Terug");
+        backButton.setPreferredSize(new Dimension(200, 35));
         
         JButton zoekButton = new JButton("Wegschrijven..");
         zoekButton.setPreferredSize(new Dimension(200, 35));
@@ -106,7 +108,7 @@ public class DemoTabel {
         JPanel contentPane = new JPanel(new BorderLayout());
         contentPane.setOpaque(true);
         
-        contentPane.add(textField, BorderLayout.LINE_START);
+        contentPane.add(backButton, BorderLayout.LINE_START);
         contentPane.add(zoekButton, BorderLayout.CENTER);
         contentPane.add(signalenLijst, BorderLayout.LINE_END);
         
@@ -161,8 +163,20 @@ public class DemoTabel {
     }
     
     public void show2(JTable tabel){
+        //contentPane2.setPreferredSize(new Dimension(500,100));
         contentPane2.add(tabel, BorderLayout.SOUTH);
         myFrame.repaint();
+    }
+    
+    public void backButton(JTable table){
+        backButton = new JButton("Terug");
+        backButton.setPreferredSize(new Dimension(200, 35));
+        
+        backButton.addActionListener(e -> {
+            myFrame.add(new JScrollPane(table));
+            System.out.println("bakcButton");
+        });
+        
     }
     
     public void optieDB(){
