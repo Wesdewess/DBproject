@@ -15,6 +15,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.BoxLayout;
+import static javax.swing.BoxLayout.PAGE_AXIS;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -126,7 +128,8 @@ public class DemoTabel {
                     "8 = RDS User naam in Profit bestaat niet in Clever\n" +
                     "9 = Medewerker uit dienst in Profit, account is in Clever actief\n" +
                     "10 = RDS User naam in Clever bestaat niet in Afas Profit");
-        contentPane2.add(area);
+        contentPane2.setLayout(new BoxLayout(contentPane2, PAGE_AXIS));
+        contentPane2.add(area, BorderLayout.NORTH);
         myFrame.add(contentPane, BorderLayout.NORTH);
         myFrame.add(contentPane2, BorderLayout.EAST);
         
@@ -139,6 +142,8 @@ public class DemoTabel {
         myFrame.add(new JScrollPane(myTable));
         
         myTable.setAutoCreateRowSorter(true);
+        
+        contentPane2.add(myTable, BorderLayout.SOUTH);
         
 
         //String selectedSignaal = (String) signalenLijst.getSelectedItem();

@@ -49,7 +49,7 @@ public class DemoDB13 {
             propertiesFile = "MSSQL.properties";
         }
         
-        try {
+        try { 
             Query updatenBijOpstarten = new Query();
             updatenBijOpstarten.query();
             JTable tabel = new JTable();
@@ -112,19 +112,14 @@ public class DemoDB13 {
                         qryPrepStat = updatenBijOpstarten.activiteitenQueryCode(username);
                     }
                 }
-<<<<<<< HEAD
-                PreparedStatement prepStat1 = conn.prepareStatement(qryPrepStat);
 
                 //System.out.print("Geef woonplaats: ");
                 //String woonplaatsd = keyboard.nextLine();
                 //prepStat.setString(1, woonplaats);
-                ResultSet res1 = prepStat1.executeQuery();
                 // uncomment one of the following two lines
                 setTableSimple(res1, tabel);  
                 //setTable(res, tabel);
-                
-=======
->>>>>>> 966a816d05c3526eeccbb4be88f39b1e5169ee07
+
             } finally {
                 conn.close();
                 System.out.println("... verbinding afgesloten.");

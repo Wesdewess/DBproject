@@ -57,7 +57,8 @@ public class Query {
                     for (int i = 1; i <= 10; i++){
                         stat = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                         
-                        //Deze query haalt alle signalen uit de database
+                        //Deze query haalt alle signalen uit de database en slaat de gegevens op in een resultset
+                        
                         ResultSet current = stat.executeQuery("SELECT * FROM [Signalen].[dbo].[Signaal] WHERE Signaal_ID = " + i + ";");
                         
                         ResultSetMetaData metaDataCurrent = current.getMetaData();
@@ -74,8 +75,9 @@ public class Query {
                         
                         while (current.next()) {
                             boolean present = false;
+                            //Voor elke waarde in rowset wordt die vergeleken met current. Als ze overeenkomen hoeft er niks gedaan te worden en kan de row verwijdert worden
                             while (rowset.next()) {
-                                //De rowset word vergeleken met current. Alles wat zowel in current als rowset voor komt word het uit rowset verwijderd
+
                                 if (current.getString(columnNameCurrent).equals(rowset.getString(columnNameNew))) {
                                     present = true;
                                     rowset.deleteRow();
