@@ -19,6 +19,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.rowset.CachedRowSet;
 
 /**
@@ -92,7 +94,7 @@ public class Query {
                             }                           
                             rowset.beforeFirst();
                         }                        
-                        //Deze while loop zet data klaar in rowset
+                        //Alles wat in rowset zit moet nog weggeschreven worden aangezien de dingen die niet worden weggeschreven al uit de rowset verwijdert zijn
                         while (rowset.next()) {
                             count++;
                             date = new Date();
@@ -141,6 +143,11 @@ public class Query {
 
     }
 
+        /**
+         * Query voor het bepalen van de organisatie van een bepaalde user
+         * @param x Username die wordt meegegeven zodat voor deze username de impact weergegeven kan worden
+         * @return Returned de query nadat de username is ingevuld
+         */
         public String organisatieQueryCode(String x){
             //username = DemoDB13.getUsername();
             //signaal = DemoDB13.getSignaal();
@@ -157,6 +164,11 @@ public class Query {
             return query;
         }
         
+        /**
+         * Query voor het bepalen van de clever activiteiten
+         * @param x Username die wordt meegegeven zodat voor deze username de impact weergegeven kan worden
+         * @return Returned de query nadat de username is ingevuld
+         */
         public String activiteitenQueryCode(String x){
             username = x;
             String query =  "SELECT A.ActiviteitSoortID, A.Status,  COUNT(A.TeamID) AS Activiteiten" +
@@ -167,6 +179,27 @@ public class Query {
                             " GROUP BY A.ActiviteitSoortID, A.Status";
             return query;
         }
+        
+        /**
+         * Query voor het bepalen van de clever entiteiten
+         * @param x Username die wordt meegegeven zodat voor een bepaalde username de impact weergegeven kan worden
+         * @return Returned de query nadat de username is ingevuld
+         */
+        public String entiteitenQueryCode(String x){
+            username = x;
+            
+            String query = "USE AuditBlackBox" +
+                           " SELECT DISTINCT E.Naam" +
+                           " FROM PersoonCodes PC JOIN PersoonTotRol PTR ON PC.PersoonID = PTR.PersoonID" +
+                           " JOIN ROL R ON PTR.RolID = R.RolID" +
+                           " JOIN Recht RE ON R.RolID = RE.RolID" +
+                           " JOIN Entiteit E ON RE.EntiteitID = E.ID" +
+                           " WHERE PC.codeSoortenID = 981" +
+                           " AND PC.code = " + username;
+            
+            return query;
+        }
+        
 }
 
 
