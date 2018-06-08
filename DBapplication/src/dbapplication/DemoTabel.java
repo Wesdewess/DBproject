@@ -79,13 +79,15 @@ public class DemoTabel {
         //Zodat er ook wat wordt gedaan wanneer een "optie" wordt geselecteerd
         signalenLijst.addActionListener(e -> {
             Query2 x = new Query2();
+            
             String signaal = (String) signalenLijst.getSelectedItem();
+            
             switch(signaal){
                 case "Signaal1" : query = x.getQuery(1);
                 break;
                 case "Signaal2" : query = x.getQuery(2);
                 break;
-                case "Signaal3" : query = x.getQuery(4);
+                case "Signaal3" : query = x.getQuery(3);
                 break;
                 case "Signaal4" : query = x.getQuery(4);
                 break;
@@ -102,7 +104,9 @@ public class DemoTabel {
                 case "Signaal10" : query = x.getQuery(10);
                 break;
                 default : System.out.println("Niet geldige invoer..");
+                System.out.println("1");
             }
+            System.out.println("2");
         });
         
         JPanel contentPane = new JPanel(new BorderLayout());
@@ -191,7 +195,7 @@ public class DemoTabel {
         DBs[0]);
 
         // favoritePizza will be null if the user clicks Cancel
-        System.out.printf("De gekozen tabel is: %s.\n", gekozenDB);
+        System.out.printf("De gekozen db is: %s.\n", gekozenDB);
     }
     
     public void opties(ArrayList<String> k){

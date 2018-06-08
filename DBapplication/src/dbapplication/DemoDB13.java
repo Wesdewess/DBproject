@@ -87,10 +87,12 @@ public class DemoDB13 {
             String gekozenDB = demoGUI.getGekozenDB();
             String connectionString = "jdbc:sqlserver://localhost:1433;database=" + gekozenDB;
             Connection conn = DriverManager.getConnection(connectionString, "" + inlogName + "", "" + inlogPassword + "");
+            JOptionPane.showInputDialog("Your connection string: " + conn);
             
             /*SimpleDataSource.init(propertiesFile);
             Connection conn = SimpleDataSource.getConnection();
             System.out.println("verbinding gemaakt middels " + propertiesFile + "...");*/
+            tabel.getTableHeader().setReorderingAllowed(false);
             while(ppp < 10){
             try {
                 Statement stat = conn.createStatement();
@@ -126,8 +128,13 @@ public class DemoDB13 {
                 
                 //Nu kan je hier zelf een query uitzoeken
                 qryPrepStat = demoGUI.getQuery();
+                //qryPrepStat = null;
+                //qryPrepStat = null;
                 while(qryPrepStat == null){
-//                    qryPrepStat = demoGUI.getQuery();
+                   // qryPrepStat = "";
+                    //if(qryPrepStat == null){
+                    //qryPrepStat = demoGUI.getQuery();
+                    //}
 //                    System.out.println(demoGUI.getQuery());
                     int row = tabel.getSelectedRow();
                     int column = tabel.getSelectedColumn();
@@ -150,6 +157,7 @@ public class DemoDB13 {
                         System.out.println("Value at: " + tabel.getValueAt(row, 0));
                         qryPrepStat = updatenBijOpstarten.organisatieQueryCode(username);
                     }
+                    
                 }
                 PreparedStatement prepStat1 = conn.prepareStatement(qryPrepStat);
 
@@ -224,7 +232,15 @@ public class DemoDB13 {
             data.add(vector);
         }
 
-        table.setModel(new DefaultTableModel(data, columns));
+        //table.setModel(new DefaultTableModel(data, columns));
+        //maakt de cell niet editable
+        //maakt de cell niet editable
+        table.setModel(new DefaultTableModel(data, columns){
+            @Override
+            public boolean isCellEditable(int row, int column){
+            return false;
+            }
+        });   
     }
   
     /**
