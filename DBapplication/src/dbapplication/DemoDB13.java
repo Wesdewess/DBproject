@@ -137,7 +137,7 @@ public class DemoDB13 {
                 PreparedStatement prepStat1 = conn.prepareStatement(qryPrepStat);
 
                 //System.out.print("Geef woonplaats: ");
-                //String woonplaats = keyboard.nextLine();
+                //String woonplaatsd = keyboard.nextLine();
                 //prepStat.setString(1, woonplaats);
                 ResultSet res1 = prepStat1.executeQuery();
                 // uncomment one of the following two lines
